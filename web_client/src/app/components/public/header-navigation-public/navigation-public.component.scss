@@ -1,0 +1,24 @@
+@media screen and (min-width: 576px) {
+    .right-side-mobile{
+        display: none;
+    }
+}
+
+.blue-points{
+  height: 40px;
+}
+.menu-tittle{
+  font-size: 18px;
+  color: #828282 !important;
+  font-family: 'Roboto', sans-serif;
+
+  .active{
+    color : #0032A8 !important;
+    font-weight: bold;
+  }
+}
+
+.border-l{
+  height: inherit;
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+}

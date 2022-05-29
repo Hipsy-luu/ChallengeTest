@@ -1,0 +1,288 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    scroll-behavior: smooth;
+}
+p{
+    margin: 0;
+}
+
+.form-box{
+    max-width: 500px;
+    width: 100%;
+    background-color: white;
+    margin: auto;
+    border-radius: 15px;
+    form{
+        max-width: 420px;
+        width: 100%;
+        margin: auto;
+        .form-control{
+            font-family: 'Muli', 'Nunito Sans',sans-serif;
+            border: transparent ;
+            border-bottom: solid 1px #777;
+            transition: .2s ease-in-out;
+            &:focus{
+                box-shadow: none !important;
+                border-bottom: solid 1px #FF5625;
+            }
+        }
+        .circulo2{
+            font-size: 30px;
+            color: #62d275;
+            position: absolute;
+            right: -45px;
+            top: -5px;
+            transition: .2s ease-in-out;
+            &:hover{
+                color: #FF5625;
+            }
+        }
+        .checkbox-inline{
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            #check{
+                position: absolute;
+                width: 20px;
+                height: 20px;
+                border: solid 1px #FF5625;
+                border-radius: 15px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                i{
+                    color: white;
+                }
+            }
+            a{
+                color: #FF5625;
+                &:hover{
+                    text-decoration: none;
+                    opacity: .7;
+                }
+            }
+            label{
+                font-family: 'Muli', 'Nunito Sans',sans-serif;
+                font-size: 12px;
+            }
+        }
+        .custom-checkbox{
+            position: absolute;
+            cursor: pointer;
+            opacity: 0;
+            width: 20px;
+            height: 20px;
+        }
+        .form-footer{
+            display: flex;
+            justify-content: center;
+        }
+    }
+}
+.show-animation{
+    visibility: visible;
+    opacity: 1;
+    transition-delay: 2s;
+}
+
+.box-register{
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/images/black-laptop.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    .row{
+        max-width: 1440px !important;
+        width: 100%;
+        margin: auto;
+        position: relative;
+        .form-box .parsley-errors-list{
+            display: none !important;
+        }
+    }
+    
+}
+.info-img-sec{
+    .images{
+        max-width: 560px;
+        width: 100%;
+        height: auto;
+    }
+    .text{
+        display: flex;
+        align-items: center;
+    }
+    .img-box{
+        display: flex;
+        justify-content: center;
+    }
+    .center-img{
+        position: relative;
+        .images-2{
+            max-width: 300px;
+            width: 100%;
+            height: auto;
+        }
+        .img-text{
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+    
+}
+
+.cheked-input{
+    color: white;
+    background-color: #FF5625;
+    border-color: #FF5625;
+}
+.modal-body img{
+    width:100% !important;
+}
+.send-down{
+    transition: .3s ease-in-out;
+    &:hover{
+        transform: scale(1.2);
+    }
+}
+.content{
+    .responsive-width{
+        max-width: 1440px;
+        margin: auto;
+        width: 100%;
+        .first-sect{
+            .row div{
+                text-align: center;
+            }
+        }
+    }
+}
+.sec-sect{
+    .header{
+        text-align: center;
+    }
+    #owl-demo .item{
+      margin: 3px;
+      text-align: center !important;
+      .video-tut{
+          max-width: 300px !important;
+          width: 100% !important;
+      }
+    }
+    #owl-demo .item img{
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+    .owl-buttons{
+        position: absolute !important;
+        top: 40%;
+        font-size: 50px;
+        transform: translateY(-50%);
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        color: rgba($color: #FF5625, $alpha: .8);
+        .owl-prev{
+            position: absolute;
+            left: 0;
+            width: 20px;
+        }
+        .owl-next{
+            position: absolute;
+            right: 0;
+            width: 20px;
+        }
+        .owl-prev, .owl-next{
+            transition: .3s ease-in-out;
+        }
+        .owl-prev:hover, .owl-next:hover{
+            color: rgba($color: #FF5625, $alpha: .5);
+        }
+    }
+}
+.thr-sect{
+    
+    .header{
+        text-align: center;
+        img{
+            max-width: 200px;
+        }
+    }
+    .body{
+        padding-bottom: 70px;
+        display: flex;
+        justify-content: center;
+        .price-table{
+            max-width: 400px;
+            width: 100%;
+            margin: 10px;
+            background-color: #201545;
+            border-radius: 10px;
+        }
+        .price-table-wht{
+            max-width: 400px;
+            width: 100%;
+            margin: 10px;
+            background-color: #EEEEEE;
+            border-radius: 10px;
+        }
+        .price-table, .price-table-wht{
+
+            .header-cont{
+                text-align: center;
+                padding: 10px;
+                img{
+                    max-width: 80px;
+                }
+            }
+            .body-cont {
+                padding: 10px 30px;
+                ul{
+                list-style: none;
+                padding: 0;
+                    li{
+                        padding: 5px;
+                    }
+                }
+            }
+        }
+    }
+}
+.four-sect{
+    display: none;
+    padding: 0 30px 30px 30px;
+    .body{
+        display: flex;
+        justify-content: center;
+        img{
+            max-height: 70px !important;
+        }
+    }
+}
+
+.jGrowl{
+    background-color: red;
+    color: white;
+    border-radius: 15px;
+}
+.jGrowl.top-right{
+    top: 20px !important;
+    right: 20px !important;
+    opacity: .85;
+}
+.jGrowl .jGrowl-closer, .jGrowl .jGrowl-notification{
+    font-size: large !important;
+}
+.client-app{
+    transition: .3s ease-in-out;
+        &:hover{
+        opacity: .8;
+    }
+}
+

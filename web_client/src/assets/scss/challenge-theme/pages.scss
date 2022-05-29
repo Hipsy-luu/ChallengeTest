@@ -1,0 +1,11 @@
+//PAGES
+    //Dashboard Admin
+@import './pages/dashboards/admin/event-types.scss';
+@import './pages/dashboards/admin/instruments.scss';
+@import './pages/dashboards/admin/musical-genres.scss';
+@import './pages/dashboards/admin/users.scss';
+
+    //PUBLIC
+@import './pages/public/login';
+@import './pages/public/commonFrontComp.scss';
+@import './pages/public/preregister.scss';

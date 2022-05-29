@@ -1,0 +1,59 @@
+@import "../variable";
+
+.navbar-register{
+    position: fixed;
+    top: 0;
+    background-color: $topbar ;
+    z-index: 20;
+    width: 100%;
+    height: 110px;
+    .max-navbar{
+        max-width: 1440px;
+        width: 100%;
+        height: 100%;
+        margin: auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .right-side{
+            display: flex;
+
+        }
+        .dropdown-menu{
+            left: -15px !important;
+            text-align: center;
+        }
+    }
+
+    .logo-nav-bar{
+        height: 50px;
+    }
+
+    .normal-txt, .sign-in-btn{
+        color: $gray-300;
+    }
+}
+
+.sign-in-btn {
+    font-size: 15px;
+    font-weight: 600;
+    color: #dddddd;
+    background-color: transparent;
+    text-decoration: none;
+    font-family: "Muli", "Nunito Sans", sans-serif;
+    padding: 5px 20px;
+    border: solid 1px #dddddd;
+    border-radius: 100px;
+    transition: 0.3s ease-in-out;
+    &:hover {
+        text-decoration: none;
+        border: solid 1px $gray-500;;
+        color: $gray-500;;
+    }
+}
+
+app-navigation-technicians{
+    .dropdown-toggle::after {
+        color: #dddddd;
+    }
+}

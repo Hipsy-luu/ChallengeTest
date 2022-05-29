@@ -1,0 +1,5 @@
+PassengerBaseURI /
+PassengerAppRoot /home/uj7o0yujixhi/admin-luu/ofi-api-sds/api_server/dist/
+
+PassengerAppType    node
+PassengerStartupFile main.js

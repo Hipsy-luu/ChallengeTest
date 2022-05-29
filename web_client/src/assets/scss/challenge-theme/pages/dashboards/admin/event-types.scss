@@ -1,0 +1,32 @@
+.button-options{
+    width: 60%;
+    margin: 0px 10% 0px 10%;
+    font-size: 40px;
+  }
+  
+  .button-reset{
+    width: 100%;
+    font-size: 40px;
+  }
+  
+  
+  .table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+  }
+  
+  .button-delete-client{
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+    background-image: none;
+  }
+  
+  .button-delete-client:hover {
+    color: #6c757d;
+    background-color: #b6b6b6;
+    border-color: #6c757d;
+  }

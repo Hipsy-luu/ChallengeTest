@@ -1,0 +1,51 @@
+<div class="navbar-register normal-border" >
+    <div class="max-navbar">
+      <div class="row full-centered full-width" style="height: inherit;">
+        <div class="col-4">
+          <div class="row">
+            <div class="col-5 full-centered">
+              <a routerLink="/">
+                <img *ngIf="!isTransparent" class="logo-nav-bar" src="/assets/images/logos/logohd_simplificado.png">
+                <img *ngIf="isTransparent" class="logo-nav-bar" src="/assets/images/logos/logohd_simplificado_blanco.png">
+              </a>
+            </div>
+            <div class="col-7 full-centered">
+              <img *ngIf="isTransparent" class="logo-nav-bar blue-points" src="/assets/images/pages/operatorHome/white_squares.svg">
+              <img *ngIf="isTransparent" class="logo-nav-bar pa-l-4 blue-points" src="/assets/images/pages/operatorHome/white_squares.svg">
+              <img *ngIf="!isTransparent" class="logo-nav-bar blue-points" src="/assets/images/pages/operatorHome/squares.svg">
+              <img *ngIf="!isTransparent" class="logo-nav-bar pa-l-4 blue-points" src="/assets/images/pages/operatorHome/squares.svg">
+            </div>
+          </div>
+        </div>
+        <div class="col-8 full-centered border-l">
+          <div class="row full-width menu-tittle">
+            <div class="col-2 full-right">
+              <a [routerLink]="'/'" class="active">
+                Inicio
+              </a>
+            </div>
+            <div class="col-2 full-right">
+              <a [routerLink]="'/'" (click)="scrollTo('usDescription')" class="pointer-hand">
+                Nosotros
+              </a>
+            </div>
+            <div class="col-2 full-right">
+              <a [routerLink]="'/catalogue'" class="">
+                Productos
+              </a>
+            </div>
+            <div class="col-2 full-right">
+              <a [routerLink]="'/'" (click)="scrollTo('servicesDescription')" class="pointer-hand">
+                Servicios
+              </a>
+            </div>
+            <div class="col-2 full-right">
+              <a [routerLink]="'/contact'" class="">
+                Contacto
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

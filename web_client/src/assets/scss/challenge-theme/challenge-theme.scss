@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito+Sans:400,700,900&amp;display=swap');
+@import url('https://fonts.googleapis.com/css?family=Muli:400,600,900&amp;display=swap');
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+
+//Libraries
+@import './libs/owl-carousel/owl.carousel.scss';
+@import './libs/owl-carousel/owl.theme.default.scss';
+
+//VARIABLES
+@import './variables.scss';
+
+//PAGES
+@import './pages.scss';
+//COMPONENTS
+@import './components.scss';
+
+//UTILITIES
+@import './utilities/btn';
+@import './utilities/text';
+@import './utilities/utilities';
+@import './utilities/input.scss';
+
+//Queries
+@import './queries/media-queries.scss';
+//Animations
+@import './animations/keyframes';
+
+
+//In This scss you can write your scss
+@import './custom.scss';
+

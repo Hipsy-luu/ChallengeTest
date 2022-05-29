@@ -1,0 +1,101 @@
+<nav class="sidebar-nav">
+    <ul id="sidebarnav">
+        <!-- User Profile-->
+        <li class="user-data-box">
+            <!-- User Profile-->
+            <div class="user-profile">
+                <div class="user-pic hide-menu">
+                    <span>
+                        <i style="font-size: 50px;" class="white-color fas fa-user-circle"></i>
+                    </span>
+                    <!-- <img src="assets/images/users/admin-user-image.jpg" alt="users" class="rounded-circle img-fluid" /> -->
+                </div>
+                <div class="user-content hide-menu m-t-10">
+                    <h2 class="m-b-10 text-capitalize user-name font-medium">
+                        {{dataSessionService.user.name}} 
+                        {{dataSessionService.user.lastName}}
+                    </h2>
+                </div>
+                <div class="user-content hide-menu m-t-10">
+                    Administrator
+                </div>
+            </div>
+            <!-- End User Profile-->
+        </li>
+        <!-- First level menu -->
+        <div class="mat-divider"></div>
+        <!-- First level menu -->
+        <!-- <li class="sidebar-item" [class.selected]="showMenu === sidebarnavItem.title" *ngFor="let sidebarnavItem of sidebarnavItems"
+            [routerLinkActive]="sidebarnavItem.submenu.length != 0 ? '' : 'active'"> -->
+        <li class="sidebar-item" *ngFor="let sidebarnavItem of sidebarNavItemsAdmin" class="sidebar-item"
+            [class.selected]="showMenu === sidebarnavItem.title && sidebarnavItem.submenu.length != 0"
+            [routerLinkActive]="sidebarnavItem.submenu.length != 0 ? '' : 'selected active'">
+            <div class="nav-small-cap" *ngIf="sidebarnavItem.extralink === true">
+                <i [ngClass]="[sidebarnavItem.icon]"></i> 
+                <span class="hide-menu">{{sidebarnavItem.title}}</span>
+            </div>
+            <a class="sidebar-link waves-effect waves-dark"
+                [routerLink]="sidebarnavItem.class === '' ? [sidebarnavItem.path] : null"
+                [ngClass]="[sidebarnavItem.class]" *ngIf="!sidebarnavItem.extralink;"
+                (click)="addExpandClass(sidebarnavItem.title)"
+                [routerLinkActive]="sidebarnavItem.submenu.length != 0 ? '' : 'active'">
+                <i [ngClass]="[sidebarnavItem.icon]"></i>
+                <span class="hide-menu">{{sidebarnavItem.title}}</span>
+            </a>
+            <!-- Second level menu -->
+            <ul aria-expanded="false" class="collapse ma-l-10p" *ngIf="sidebarnavItem.submenu.length > 0"
+                [ngClass]="{'in' : showMenu === sidebarnavItem.title }">
+                <li class="sidebar-item" *ngFor="let sidebarnavSubItem of sidebarnavItem.submenu"
+                    [class.active]="showSubMenu === sidebarnavSubItem.title"
+                    [routerLinkActive]="sidebarnavSubItem.submenu.length > 0 ? '' : 'selected active'">
+                    <a class="sidebar-link" style="padding-left: 35px;"
+                        [routerLink]="sidebarnavSubItem.submenu.length > 0 ? null : [sidebarnavSubItem.path]"
+                        [routerLinkActive]="sidebarnavSubItem.submenu.length > 0 ? '' : 'router-link-active'"
+                        [ngClass]="[sidebarnavSubItem.class]" *ngIf="!sidebarnavSubItem.extralink;"
+                        (click)="addActiveClass(sidebarnavSubItem.title)">
+                        <i [ngClass]="[sidebarnavSubItem.icon]"></i>
+                        <span class="hide-menu">{{sidebarnavSubItem.title}}</span>
+                    </a>
+                    <!-- Third level menu -->
+                    <ul aria-expanded="false" class="collapse second-level" *ngIf="sidebarnavSubItem.submenu.length > 0"
+                        [ngClass]="{'in' : showSubMenu === sidebarnavSubItem.title }">
+                        <li class="sidebar-item" *ngFor="let sidebarnavSubsubItem of sidebarnavSubItem.submenu"
+                            routerLinkActive="active" [ngClass]="[sidebarnavSubsubItem.class]">
+                            <a class="sidebar-link" [routerLink]="[sidebarnavSubsubItem.path]"
+                                *ngIf="!sidebarnavSubsubItem.extralink;"
+                                [routerLinkActive]="sidebarnavSubsubItem.submenu.length > 0 ? '' : 'selected active'">
+                                <i [ngClass]="[sidebarnavSubsubItem.icon]"></i>
+                                <span class="hide-menu"
+                                    style="color: #abafb9;">{{sidebarnavSubsubItem.title.toUpperCase()}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <div class="mat-divider"></div>
+    </ul>
+</nav>
+
+<!-- <div class="mat-divider"></div>
+<li class="padding-poers">
+    <div class="user-profile">
+        <div class="user-pic hide-menu">
+            <h3 class="type">REPORTES</h3>
+        </div>
+    </div>
+</li>
+
+<li class="sidebar-item" class="sidebar-item">
+    <a class="sidebar-link waves-effect waves-dark" 
+        routerLink="/dashboard-technician/home">
+        <i [ngClass]="'fa-solid fa-receipt'" class="pa-icon"></i>
+        <span class="hide-menu pa-l-10">Generar Reporte</span>
+    </a>
+    <a class="sidebar-link waves-effect waves-dark" 
+        routerLink="/dashboard-technician/profile">
+        <i [ngClass]="'fa-solid fa-id-card-clip'" class="pa-icon"></i>
+        <span class="hide-menu pa-l-10">Reporte por Usuario</span>
+    </a>
+</li>
+<div class="mat-divider"></div> -->

@@ -1,0 +1,36 @@
+/*
+Template Name: Admin Template
+Author: Niravjoshi / Wrappixel
+File: scss
+*/
+
+//(Required file)
+@import 'challenge-theme/variable.scss';
+
+//Theme colors
+@import 'theme-colors/dark-theme';
+/* @import 'theme-colors/theme-colors'; */ //importado en components
+
+// Import Bootstrap source files (Required file)
+@import 'bootstrap/bootstrap';
+
+//This is for the components (Required file)
+@import 'components';
+
+//This is for the widgets (Required file)
+@import 'widgets/widgets';
+
+//This is for the horizontal version if you are not using horizontal version you can remove this
+@import 'horizontal/horizontal';
+
+//This is for the responsive (Required file)
+@import 'responsive';
+
+// this is for the perfect scrollbar// this is for the perfect scrollbar
+@import '~perfect-scrollbar/css/perfect-scrollbar.css';
+
+/* @import 'core/perfect-scrollbar/css/perfect-scrollbar.css'; */
+@import 'core/perfect-scrollbar/perfect-scrollbar.scss';
+
+// this is for the personalized ingmulti theme
+@import 'challenge-theme/challenge-theme';

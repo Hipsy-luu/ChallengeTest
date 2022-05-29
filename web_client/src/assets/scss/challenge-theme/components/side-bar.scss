@@ -1,0 +1,18 @@
+.sidebar-nav .has-arrow::after {
+    position: absolute;
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-width: 1px 0 0 1px;
+    border-style: solid;
+    border-color: #fff;
+    margin-left: 10px;
+    transform: rotate(135deg) translate(0, -50%);
+    transform-origin: top;
+    top: 35px;
+    right: 15px;
+    transition: all 0.3s ease-out;
+}
+.sidebar-nav ul .sidebar-item.selected .has-arrow::after  {
+    transform: rotate(225deg) translate(0, -50%);
+}
