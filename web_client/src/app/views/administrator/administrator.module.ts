@@ -3,17 +3,21 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { CarouselModule } from 'ngx-owl-carousel-o';
 
 import { AdministratorRoutes } from './administrator.routing';
 //Home
 import { HomeComponent } from './home/home.component';
 import { ComponentsModule } from '../../components/components.component';
 
-import { CarouselModule } from 'ngx-owl-carousel-o';
 import { MaterialModule } from '../../utils/material';
 import { StaffComponent } from './staff/staff.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { AccountsComponent } from './accounts/accounts.component';
+import { MovementsHistoryComponent } from './movements-history/movements-history.component';
+import { DatetimerangepickerModule } from 'angular-datetimerangepicker';
+import { AccountDetailsComponent } from './account-details/account-details.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +29,9 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
     /* Public views*/
     HomeComponent,
     StaffComponent,
+    AccountsComponent,
+    MovementsHistoryComponent,
+    AccountDetailsComponent,
   ],
   imports: [
     //Imports only for this module
@@ -41,6 +48,7 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
     CarouselModule,
     NgbModule,
     MaterialModule,
+    DatetimerangepickerModule,
   ],
 })
 export class AdministratorModule { }

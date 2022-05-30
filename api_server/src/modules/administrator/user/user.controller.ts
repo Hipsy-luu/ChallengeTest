@@ -2,14 +2,14 @@ import { ServerMessage } from '../../../classes/ServerMessage.class';
 import { Controller, Request , Get, Post, Body, UseGuards, Param } from '@nestjs/common';
 import { UserService } from './user.service';
 import { AuthGuard } from '@nestjs/passport';
-import { RoleSuperAdminGuard } from '../../../middlewares/roles.guard';
+import { RolesAdminGuard, RoleSuperAdminGuard } from '../../../middlewares/roles.guard';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get('get-normal-user-list')
-  @UseGuards( AuthGuard() ,RoleSuperAdminGuard )
+  @UseGuards( AuthGuard() ,RolesAdminGuard )
   getUsers() : Promise<ServerMessage> {
     return this.userService.getAllUsers();
   }
@@ -32,15 +32,9 @@ export class UserController {
     return this.userService.deleteUser( idUser );
   }
 
-  @Post('update-user-password')
-  @UseGuards( AuthGuard() ,RoleSuperAdminGuard )
-  updateUserPassword(@Request() req , @Body() body): Promise<ServerMessage> {
-    return this.userService.resetManualUserPassByIdUser( req.user.idUser , body );
-  }
-
   @Post('reset-user-pass')
   @UseGuards( AuthGuard() ,RoleSuperAdminGuard )
-  resetUserPassByIdUser( @Body() body/*  @Param('idUser') idUser : number */ ) : Promise<ServerMessage> {
+  resetUserPassByIdUser( @Body() body ) : Promise<ServerMessage> {
     return this.userService.resetUserPassByIdUser( body );
   }
 }

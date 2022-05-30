@@ -1,7 +1,5 @@
 
 import { Module } from '@nestjs/common';
-import { MailerModule } from '@nestjs-modules/mailer';
-import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 
 import { RouterModule } from '@nestjs/core';
 
@@ -10,40 +8,13 @@ import { AppController } from './app.controller';
 import { AuthModule } from './modules/auth/auth.module';
 import { AdministratorModule } from './modules/administrator/administrator.module';
 
+
+import { WinstonModule } from 'nest-winston';
+import * as winston from 'winston';
+import * as path from 'path';
+
 @Module({
   imports: [
-    MailerModule.forRoot({
-      transport: 
-      {
-        host: 'smtp.chihuahua.gob.mx',
-        from: 'sds.ti@chihuahua.gob.mx',
-        tls: {
-          rejectUnauthorized: false
-        },
-        port: 25,
-        ignoreTLS: false,
-        secure: false,  // upgrade later with STARTTLS
-        starttls: {
-          enable: false
-        },
-        //secureConnection: true,
-        auth: {
-          user: "sds.ti@chihuahua.gob.mx",
-          pass: "S5_0ds4T9i",
-        },
-      },
-      defaults: {
-        from: 'sds.ti@chihuahua.gob.mx',
-      },
-      preview: false,
-      template: {
-        dir: /* process.cwd() */ __dirname + '/templates/emails/',
-        adapter: new HandlebarsAdapter(), // or new PugAdapter() or new EjsAdapter()
-        options: {
-          strict: true,
-        },
-      },
-    }),
     /* Principal Modules */
     AuthModule,
     AdministratorModule,
@@ -58,6 +29,33 @@ import { AdministratorModule } from './modules/administrator/administrator.modul
         module: AdministratorModule,
       },
     ]),
+    /* Module for log system */
+
+    WinstonModule.forRoot({
+      transports: [
+        new winston.transports.Console(),
+        // logger for debugging
+        new winston.transports.File({
+          dirname: path.join(__dirname, './../log/'),
+          filename: 'debug.log',
+          level: 'debug',
+        }),
+        // logger for console errors
+        new winston.transports.File({
+          dirname: path.join(__dirname, './../log/'),
+          filename: 'error.log',
+          level: 'error',
+        }),
+      ],
+      format: winston.format.combine(
+        winston.format.timestamp({
+           format: 'MMM-DD-YYYY HH:mm:ss'
+        }),
+        winston.format.printf(
+          (info) => `${info.level}: ${[info.timestamp]}: ${info.message}` 
+        ),
+      )
+    }),
   ],
   controllers: [AppController],
   providers: [],

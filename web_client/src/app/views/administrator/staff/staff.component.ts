@@ -59,8 +59,7 @@ export class StaffComponent implements OnInit {
       if (this.dataSessionService.user.idRole == 0 || this.dataSessionService.user.idRole == 1) {//Super admin and admin
         this.loadData();
       } else if (this.dataSessionService.user.idRole == 2 ) {//Normal User
-        this.utilitiesService.showSuccessToast(response.message, "Success!");
-        //this.dataSessionService.navigateByUrl("/dashboard-administrator/home");
+        this.dataSessionService.navigateByUrl("/dashboard-normal-user/account-details");
       } else {
         this.utilitiesService.showErrorToast("Unknown user.", "Error!");
         this.dataSessionService.logOut();
@@ -73,14 +72,14 @@ export class StaffComponent implements OnInit {
   initUserForm() {
     /* this.selectedNormalUser = ({
       idUser: -1,
-      idRole: 0,
-      name: "Luismiguel",
-      lastName: "Ortiz",
-      motherLastName: "Alvárez",
-      email: "luismi.luu@gmail.com",
-      password: "50YujDBiAF6NNOEx",
+      idRole: 1,
+      name: "test"+Date.now(),
+      lastName: "normal",
+      motherLastName: "testoito",
+      email: Date.now()+"@gmail.com",
+      password: "12345678",
       englishLevel: 7,
-      technicalKnowledge : "Full Stack",
+      technicalKnowledge : "a lot",
       urlCv : "https://drive.google.com/file/d/168oNhbgxyUqyLZkJ9r0bR9l6qaykDs4D/view?usp=sharing",
       deleted: false,
       createdAt : new Date(),
@@ -96,9 +95,9 @@ export class StaffComponent implements OnInit {
     this.userModalForm = this.formBuilder.group({
       idUser: [this.selectedNormalUser.idUser, []],
       idRole: [this.selectedNormalUser.idRole, []],
-      name: [this.selectedNormalUser.name, [Validators.required, Validators.minLength(5), Validators.maxLength(45)]],//
-      lastName: [this.selectedNormalUser.lastName, [Validators.required, Validators.minLength(5), Validators.maxLength(45)]],//
-      motherLastName: [this.selectedNormalUser.motherLastName, [Validators.required, Validators.minLength(5), Validators.maxLength(45)]],//
+      name: [this.selectedNormalUser.name, [Validators.required, Validators.minLength(2), Validators.maxLength(45)]],//
+      lastName: [this.selectedNormalUser.lastName, [Validators.required, Validators.minLength(2), Validators.maxLength(45)]],//
+      motherLastName: [this.selectedNormalUser.motherLastName, [Validators.required, Validators.minLength(2), Validators.maxLength(45)]],//
       email: [this.selectedNormalUser.email, [Validators.required, Validators.email, Validators.maxLength(100)]],
       password: ['', passValidator],
       passwordConfirm: ['', passValidator],
@@ -158,8 +157,8 @@ export class StaffComponent implements OnInit {
 
   openModalConfirmResetPassword(user: UserDto) {
     this.selectedNormalUser = JSON.parse(JSON.stringify(user));
-    this.newPassword = "123456789";
-    this.confirmNewPassword = "123456789";
+    this.newPassword = "";
+    this.confirmNewPassword = "";
 
     this.modalService.open(this.modalConfirmResetPassword, {
       ariaLabelledBy: 'modal-basic-title', centered: true,
@@ -215,22 +214,25 @@ export class StaffComponent implements OnInit {
 
     this.apiDataService.getNormalUsersListData().subscribe({
       next: (response: ServerMessage) => {
-        console.log(response);
-        for (let index = 0; index < response.data.userList.length; index++) {
-          response.data.userList[index].createdAt = new Date(response.data.userList[index].createdAt);
-          response.data.userList[index].updatedAt = new Date(response.data.userList[index].updatedAt);
-
+        if (response.error == true) {
+          console.log(response);
+          this.utilitiesService.showErrorToast(response.message, "Error");
+        } else if (response.error == false) {
+          for (let index = 0; index < response.data.userList.length; index++) {
+            response.data.userList[index].createdAt = new Date(response.data.userList[index].createdAt);
+            response.data.userList[index].updatedAt = new Date(response.data.userList[index].updatedAt);
+          }
+          this.normalUsersList = [...response.data.userList];
+          this.normalUsersListFiltered = Array.from(this.normalUsersList);
+  
+          //this.openModalEditUser(this.normalUsersListFiltered[0]);
+          //this.openModalAddUser();
+          //this.openModalConfirmResetPassword(this.normalUsersListFiltered[0])
         }
-        this.normalUsersList = [...response.data.userList];
-        this.normalUsersListFiltered = Array.from(this.normalUsersList);
-
-        //this.openModalEditUser(this.normalUsersListFiltered[0]);
-        this.openModalAddUser();
-        //this.openModalConfirmResetPassword(this.normalUsersListFiltered[0])
       }, error: (error) => {
         console.log("error");
         console.log(error);
-        this.utilitiesService.showErrorToast("A ocurrido un error", "Error");
+        this.utilitiesService.showErrorToast("An error has occurred", "Error");
       }
     });
   }
@@ -238,12 +240,11 @@ export class StaffComponent implements OnInit {
   async deleteUser() {
     this.showAwaitAnimation = true;
     this.apiDataService.deleteUser(this.selectedNormalUser.idUser).then(async (response : ServerMessage)=>{
-      //console.log(response);
       if(response.error == true){
         console.log(response);
-        this.utilitiesService.showErrorToast(response.message,"Éxito");
+        this.utilitiesService.showErrorToast(response.message,"Error");
       }else if(response.error == false){
-        this.utilitiesService.showSuccessToast(response.message,"Éxito");
+        this.utilitiesService.showSuccessToast(response.message,"Success");
         this.loadData();
         this.modalService.dismissAll();
       }
@@ -252,7 +253,7 @@ export class StaffComponent implements OnInit {
     }).catch((error)=>{
       console.log("error");
       console.log(error);
-      this.utilitiesService.showErrorToast("A ocurrido un error","Error"); 
+      this.utilitiesService.showErrorToast("An error has occurred","Error"); 
       this.showAwaitAnimation = false;
     });
   }
@@ -261,23 +262,20 @@ export class StaffComponent implements OnInit {
     this.showAwaitAnimation = true;
 
     this.apiDataService.resetUserPassById(this.selectedNormalUser.idUser, this.newPassword ).then((response: ServerMessage) => {
-      console.log(response);
       if (response.error == true) {
         this.utilitiesService.showWarningToast(response.message, "Error");
         console.log(response);
         this.showAwaitAnimation = false;
       } else if (response.error == false) {
-        this.utilitiesService.showSuccessToast(response.message, "Éxito");
-        //this.loadData();
+        this.utilitiesService.showSuccessToast(response.message, "Success");
         this.modalService.dismissAll();
         this.showAwaitAnimation = false;
         this.newPassword = "";
         this.confirmNewPassword = "";    
       }
     }).catch(error => {
-      console.log("error");
       console.log(error);
-      this.utilitiesService.showErrorToast("Ups a ocurrido un error", "Error");
+      this.utilitiesService.showErrorToast("Ups An error has occurred", "Error");
       this.showAwaitAnimation = false;
     });
   }
@@ -287,34 +285,29 @@ export class StaffComponent implements OnInit {
 
     if (this.selectedNormalUser.idUser == -1) {
       this.apiDataService.createUser( this.userModalForm.value ).then(async (response : ServerMessage)=>{
-        //console.log(response);
         if(response.error == true){
           console.log(response);
           this.utilitiesService.showErrorToast(response.message,"Error");
         }else if(response.error == false){
           this.loadData();
-          this.utilitiesService.showSuccessToast(response.message,"Exito");
+          this.utilitiesService.showSuccessToast(response.message,"Successful");
           this.modalService.dismissAll();
         }
         await this.utilitiesService.sleep(1000);
         this.showAwaitAnimation =  false;
       }).catch((error)=>{
         this.showAwaitAnimation =  false;
-        console.log("error");
         console.log(error);
-        this.utilitiesService.showErrorToast("A ocurrido un error","Error");
+        this.utilitiesService.showErrorToast("An error has occurred","Error");
       });
     } else {
-      console.log(this.userModalForm.value);
-      
       this.apiDataService.editUser( this.userModalForm.value ).then(async (response : ServerMessage)=>{
-        //console.log(response);
         if(response.error == true){
           console.log(response);
           this.utilitiesService.showErrorToast(response.message,"Error");
         }else if(response.error == false){
           this.loadData();
-          this.utilitiesService.showSuccessToast(response.message,"Exito");
+          this.utilitiesService.showSuccessToast(response.message,"Successful");
           //this.modalService.dismissAll();
         }
         await this.utilitiesService.sleep(1000);
@@ -323,8 +316,7 @@ export class StaffComponent implements OnInit {
         this.showAwaitAnimation =  false;
         console.log("error");
         console.log(error);
-        this.utilitiesService.showErrorToast("A ocurrido un error","Error");
-        
+        this.utilitiesService.showErrorToast("An error has occurred","Error");
       });
     }
   }

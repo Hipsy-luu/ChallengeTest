@@ -25,6 +25,14 @@ export const databaseProviders = [
         password: '2hkBtFLGW9Fo4ccW',
         database: 'movementsTracker',
         logging: false, //If true then SQL querys will be showed in the terminal
+        dialectOptions: {
+          //useUTC: true, //for reading from database
+          dateStrings: false,
+          typeCast: true,
+          timezone: "America/Chihuahua" //for reading from database
+        },
+        //timezone: "-06:00", //for writing to database
+        timezone: 'America/Chihuahua'//"-06:00"
       });
 
       /**

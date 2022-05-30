@@ -13,7 +13,7 @@
                         </div>
                     </div>
                     <div class="col-6 full-centered full-right">
-                        <button type="button" class="btn mr-0 btn-primary max-btn-animate font-18" aria-label="Eliminar"
+                        <button *ngIf="dataSessionService.user.idRole == 0" type="button" class="btn mr-0 btn-primary max-btn-animate font-18" aria-label="Eliminar"
                             (click)="openModalAddUser()">
                             <i class="fas fa-plus-square ma-0-10"></i>
                             New user
@@ -146,20 +146,20 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-2 full-centered pa-10-0">
+                                            <div class="col full-centered pa-10-0">
                                                 <label class="no-margin date-label margin-hori-10-5 "
                                                     style="background-color: #160e81;margin-bottom: 5px;">
                                                     <i class="fas fa-calendar"></i>{{ utilitiesService.getOnlyDate(
                                                     normalUser.createdAt )}}
                                                 </label>
                                             </div>
-                                            <div class="col-2 full-centered">
-                                                <div class="row full-centered">
+                                            <div *ngIf="dataSessionService.user.idRole == 0" class="col-2 full-centered">
+                                                <div  class="row full-centered">
                                                     <div class="col-12 no-margin full-centered pa-5">
                                                         <button (click)="openModalEditUser(normalUser)"
                                                             class="btn mr-0 btn-primary max-btn-animate full-width pa-10"
                                                             type="button">
-                                                            <i class="fas fa-edit"></i> Editar
+                                                            <i class="fas fa-edit"></i> Edit
                                                         </button>
                                                     </div>
                                                     <div class="col-12 no-margin full-centered pa-5">
@@ -167,7 +167,7 @@
                                                             class="btn mr-0 btn-warning max-btn-animate full-width pa-10"
                                                             type="button">
                                                             <i class="fas fa-key"></i>
-                                                            Restablecer
+                                                            Reset Pass
                                                         </button>
                                                     </div>
                                                 </div>
@@ -212,7 +212,7 @@
 <ng-template #modalConfirmResetPassword let-modal>
     <div *ngIf="showAwaitAnimation == true" class="loader-layer">
         <div class="modal-header">
-            <h4 class="modal-title" id="modal-basic-title">Restableciendo Contraseña</h4>
+            <h4 class="modal-title" id="modal-basic-title">Resetting Password</h4>
         </div>
         <div class="modal-body">
             <div class="row">
@@ -222,7 +222,7 @@
     </div>
     <div>
         <div class="modal-header">
-            <h4 class="modal-title" id="modal-basic-title">Confirmar restablecimiento de contraseña</h4>
+            <h4 class="modal-title" id="modal-basic-title">Confirm password reset</h4>
             <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -231,7 +231,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-8" style="left: 45px;">
                     <label class="control-label form-label m-10">
-                        <span style="color: red;">8 caracteres mínimo</span>
+                        <span style="color: red;">8 minimum characters</span>
                     </label>
                 </div>
             </div>
@@ -243,14 +243,14 @@
                                 <i class="fas fa-user blue-color"></i>
                             </span>
                             <input type="password" [(ngModel)]="newPassword" class="form-control" id="passw"
-                                name="passw" placeholder="Nueva contraseña" minlength="8" required>
+                                name="passw" placeholder="New Password" minlength="8" required>
                             <span *ngIf="newPassword.length < 7 && newPassword.length != 0"
                                 tooltip-Class="tooltip-class" placement="right"
-                                ngbTooltip="Las contraseñas debe tener al menos 8 caracteres">
+                                ngbTooltip="Passwords must have at least 8 characters">
                                 <i class="fas fa-circle-exclamation"></i>
                             </span>
                             <span *ngIf="newPassword.length == 0" tooltip-Class="tooltip-class" placement="right"
-                                ngbTooltip="Las contraseñas es requerida">
+                                ngbTooltip="Passwords is required">
                                 <i class="fas fa-circle-exclamation"></i>
                             </span>
                         </div>
@@ -263,9 +263,9 @@
                                 <i class="fas fa-user blue-color"></i>
                             </span>
                             <input type="password" [(ngModel)]="confirmNewPassword" class="form-control" id="passConf"
-                                name="passConf" placeholder="Confirmar contraseña" required>
+                                name="passConf" placeholder="Confirm Password" required>
                             <span *ngIf="confirmNewPassword != newPassword" tooltip-Class="tooltip-class"
-                                placement="right" ngbTooltip="Las contraseñas no coinciden">
+                                placement="right" ngbTooltip="Passwords do not match">
                                 <i class="fas fa-circle-exclamation"></i>
                             </span>
                         </div>
@@ -278,14 +278,14 @@
                 <div class="col-6">
                     <button (click)="modal.dismiss('Cross click')"
                         class="btn btn-block btn-lg btn-danger color-white max-btn-animate normal-shadow">
-                        <i class="fas fa-window-close ma-0-10"></i> Cancelar
+                        <i class="fas fa-window-close ma-0-10"></i> Cancel
                     </button>
                 </div>
                 <div class="col-6">
                     <button [disabled]="confirmNewPassword != newPassword || newPassword.length < 7"
                         (click)="confirmResetPass()"
                         class="btn btn-block btn-lg btn-success color-white max-btn-animate normal-shadow">
-                        <i class="fas fa-key ma-0-10"></i> Restablecer
+                        <i class="fas fa-key ma-0-10"></i> Reset password
                     </button>
                 </div>
             </div>
@@ -298,7 +298,7 @@
 <ng-template #modalConfirmDeleteUser let-modal>
     <div *ngIf="showAwaitAnimation == true">
         <div class="modal-header">
-            <h4 class="modal-title" id="modal-basic-title">Eliminando Usuario</h4>
+            <h4 class="modal-title" id="modal-basic-title">Deleting User</h4>
         </div>
         <div class="modal-body">
             <div class="row">
@@ -309,7 +309,7 @@
     <div *ngIf="showAwaitAnimation == false">
         <div class="modal-header">
             <h4 class="modal-title" id="modal-basic-title">
-                Confirmar la eliminación del usuario {{selectedNormalUser.email}}
+                Confirm deletion of the user {{selectedNormalUser.email}}
             </h4>
             <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
                 <span aria-hidden="true">&times;</span>
@@ -319,7 +319,7 @@
             <div class="row justify-content-center">
                 <div class="col-12 full-centered">
                     <label class="control-label form-label m-10">
-                        <span style="color: red;">¿Esta seguro que desea eliminar el usuario?</span>
+                        <span style="color: red;">Are you sure you want to delete the user?</span>
                     </label>
                 </div>
             </div>
@@ -330,14 +330,14 @@
                 <div class="col-6">
                     <button (click)="modal.dismiss('Cross click')"
                         class="btn btn-block btn-lg btn-danger color-white max-btn-animate normal-shadow">
-                        <i class="fas fa-window-close ma-0-10"></i> Cancelar
+                        <i class="fas fa-window-close ma-0-10"></i> Cancel
                     </button>
                 </div>
                 <div class="col-6">
                     <button (click)="deleteUser()"
                         class="btn btn-block btn-lg btn-success color-white max-btn-animate normal-shadow">
                         <i class="fas fa-trash ma-0-10"></i>
-                        Eliminar
+                        Delete
                     </button>
                 </div>
             </div>
@@ -382,7 +382,7 @@
                                 <span class="icon-size pa-r-10">
                                     <i class="fas fa-user blue-color"></i>
                                 </span>
-                                <input type="text" required class="form-control text-forms-capi" id="name" name="name"
+                                <input type="text" required class="form-control text-forms-cap text-capitalize" id="name" name="name"
                                     placeholder="Name(s)" formControlName="name">
 
                                 <span *ngIf="name.invalid && name.touched">
@@ -407,7 +407,7 @@
                                 <span class="icon-size pa-r-10">
                                     <i class="fas fa-user blue-color"></i>
                                 </span>
-                                <input type="text" required class="form-control text-forms-capi" id="lastName"
+                                <input type="text" required class="form-control text-forms-capi text-capitalize" id="lastName"
                                     name="lastName" placeholder="Last name" formControlName="lastName">
                                 <span *ngIf="lastName.invalid && lastName.touched">
                                     <span *ngIf="lastName.errors['required']" tooltip-Class="tooltip-class"
@@ -433,7 +433,7 @@
                                 <span class="icon-size pa-r-10">
                                     <i class="fas fa-user blue-color"></i>
                                 </span>
-                                <input type="text" required class="form-control text-forms-capi" id="motherLastName"
+                                <input type="text" required class="form-control text-forms-capi text-capitalize" id="motherLastName"
                                     name="motherLastName" placeholder="Mother's last name"
                                     formControlName="motherLastName">
                                 <span *ngIf="motherLastName.invalid && motherLastName.touched">
@@ -454,7 +454,6 @@
                                 </span>
                             </div>
                         </div>
-
 
                         <div class="form-group">
                             <div class="input-group">
@@ -480,6 +479,82 @@
                                     <span
                                         *ngIf="englishLevel.value == -1"
                                         tooltip-Class="tooltip-class" placement="right" ngbTooltip="English level required">
+                                        <i class="fas fa-circle-exclamation"></i>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="icon-size pa-r-10">
+                                    <i class="fas fa-comment blue-color"></i>
+                                </span>
+                                <textarea type="text" required class="form-control text-forms-capi" id="technicalKnowledge"
+                                    name="technicalKnowledge" placeholder="Technical Knowledge description"
+                                    formControlName="technicalKnowledge"></textarea>
+                                <span *ngIf="technicalKnowledge.invalid && technicalKnowledge.touched">
+                                    <span *ngIf="technicalKnowledge.errors['required']" tooltip-Class="tooltip-class"
+                                        placement="right" ngbTooltip="Technical Knowledge required">
+                                        <i class="fas fa-circle-exclamation"></i>
+                                    </span>
+                                    <span *ngIf="technicalKnowledge.errors['minlength']" tooltip-Class="tooltip-class"
+                                        placement="right"
+                                        ngbTooltip="Technical Knowledge  must contain at least 5 characters.">
+                                        <i class="fas fa-circle-exclamation"></i>
+                                    </span>
+                                    <span *ngIf="technicalKnowledge.errors['maxlength']" tooltip-Class="tooltip-class"
+                                        placement="right"
+                                        ngbTooltip="Technical Knowledge  can contain a maximum of 500 characters.">
+                                        <i class="fas fa-circle-exclamation"></i>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="icon-size pa-r-10">
+                                    <i class="fas fa-file-pdf blue-color"></i>
+                                </span>
+                                <input type="text" required class="form-control text-forms-capi" id="urlCv"
+                                    name="urlCv" placeholder="CV url (Google Drive)"
+                                    formControlName="urlCv">
+                                <span *ngIf="urlCv.invalid && urlCv.touched">
+                                    <span *ngIf="urlCv.errors['required']" tooltip-Class="tooltip-class"
+                                        placement="right" ngbTooltip="CV url required">
+                                        <i class="fas fa-circle-exclamation"></i>
+                                    </span>
+                                    <span *ngIf="urlCv.errors['minlength']" tooltip-Class="tooltip-class"
+                                        placement="right"
+                                        ngbTooltip="CV url must contain at least 5 characters.">
+                                        <i class="fas fa-circle-exclamation"></i>
+                                    </span>
+                                    <span *ngIf="urlCv.errors['maxlength']" tooltip-Class="tooltip-class"
+                                        placement="right"
+                                        ngbTooltip="CV url can contain a maximum of 300 characters.">
+                                        <i class="fas fa-circle-exclamation"></i>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="icon-size pa-r-10">
+                                    <i class="fa-solid fa-users-gear"></i>
+                                </span>
+                                <select id="idRole" name="idRole" class="form-control" formControlName="idRole">
+                                    <option value="-1" disabled [ngValue]="-1">Select user role</option>
+                                    <!-- <option value="0" [ngValue]="0">0 - Nothing</option> -->
+                                    <option value="1" [ngValue]="1">Administrator</option>
+                                    <option value="2" [ngValue]="2">Normal User</option>
+                                </select>
+
+                                <span *ngIf="idRole.touched">
+                                    <span
+                                        *ngIf="idRole.value == -1"
+                                        tooltip-Class="tooltip-class" placement="right" ngbTooltip="User role required">
                                         <i class="fas fa-circle-exclamation"></i>
                                     </span>
                                 </span>
@@ -549,6 +624,20 @@
                                         <i class="fas fa-circle-exclamation"></i>
                                     </span>
                                 </span>
+                            </div>
+                        </div>
+
+                        <div class="row full-width" *ngIf="selectedNormalUser.idUser != -1">
+                            <div class="col-12">
+                                Actual Teams
+                            </div>
+                            <div class="col-12">
+                                <div class="card pa-10" *ngIf="selectedNormalUser.teams.length == 0">
+                                    No registered teams
+                                </div>
+                                <div class="card pa-10" *ngFor="let team of selectedNormalUser.teams">
+                                    {{team.idAccount}} - {{team.account.accountName}}
+                                </div>
                             </div>
                         </div>
 

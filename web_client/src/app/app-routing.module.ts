@@ -26,9 +26,11 @@ const routes: Routes = [
     children: [
       {
         path: 'dashboard-administrator',
-        //Se carga de esta manera porque dentro del modulo del dashboard vienen componentes e importaciones que
-        //se comparten y pueden usar en las vistas dentro del modulo
         loadChildren: () => import('./views/administrator/administrator.module').then(m => m.AdministratorModule)
+      },
+      {
+        path: 'dashboard-normal-user',
+        loadChildren: () => import('./views/normal-user/normal-user.module').then(m => m.NormalUsersModule)
       },
     ]
   },

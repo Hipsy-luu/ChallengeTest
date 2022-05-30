@@ -6,14 +6,15 @@ import {
   CreatedAt,
   UpdatedAt,
   ForeignKey,
-  BelongsTo
+  BelongsTo,
+  Sequelize
 } from 'sequelize-typescript';
 import { Account } from './accounts.entity';
 import { User } from './user.entity';
 
 @Table({
   tableName: 'teamMembers',
-  //timestamps : true,
+  //timestamps : false,
 })
 export class TeamMember extends Model<TeamMember> {
   @Column({
@@ -45,11 +46,11 @@ export class TeamMember extends Model<TeamMember> {
   })
   deleted: boolean;
   
-  @CreatedAt
-  createdAt : Date;
-  
   @UpdatedAt
   updatedAt : Date;
+
+  @CreatedAt
+  createdAt : Date;
 
   @BelongsTo(() => Account, 'idAccount')
   account: Account;

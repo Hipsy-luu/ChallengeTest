@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
         this.dataSessionService.navigateByUrl("/dashboard-administrator/home");
       } else if (this.dataSessionService.user.idRole == 2 ) {//Normal User
         this.utilitiesService.showSuccessToast(response.message, "Success!");
-        //this.dataSessionService.navigateByUrl("/dashboard-administrator/home");
+        this.dataSessionService.navigateByUrl("/dashboard-normal-user/account-details");
       } else {
         this.utilitiesService.showErrorToast("Unknown user.", "Error!");
         this.dataSessionService.logOut();
@@ -78,7 +78,7 @@ export class LoginComponent implements OnInit {
           this.dataSessionService.navigateByUrl("/dashboard-administrator/home");
         } else if (this.dataSessionService.user.idRole == 2 ) {//Normal User
           this.utilitiesService.showSuccessToast(response.message, "Success!");
-          //this.dataSessionService.navigateByUrl("/dashboard-normal/home");
+          this.dataSessionService.navigateByUrl("/dashboard-normal-user/account-details");
         } else {
           this.utilitiesService.showErrorToast("Unknown user.", "Error!");
           this.dataSessionService.logOut();

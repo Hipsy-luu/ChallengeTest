@@ -1,6 +1,9 @@
 import { Injectable, NgZone } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 //import  * as printJS from 'print-js';
+import * as dayjs from "dayjs";
+
+/* import { Dayjs } from "dayjs"; */
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +17,10 @@ export class UtilitiesService {
     return this.validYoutubeUrl.test(url)
   }
 
+  getDateTimepikerFormatDayJs( dateToFix ){
+    return  dayjs(dateToFix);
+  }
+  
   createDateAsUTC(date: Date) {
     let dateFixed = new Date(date);
     return new Date(
@@ -82,30 +89,18 @@ export class UtilitiesService {
     return (new Date(string).getFullYear() )+10
   }
 
-  getOnlyTime(string : string) {
-    const birthday = new Date(string);
+  convertDateTime(date){
+    let dateFixed: Date = this.convertDateToUTC(new Date(date));
+    return dateFixed.toLocaleDateString("es-MX", { 
+      year: "2-digit",month: "2-digit",day: "2-digit" ,
+      hour: '2-digit', minute:'2-digit', 
+     });
+  }
+
+  getOnlyTime(date : Date) {
+    const birthday = new Date(date);
     let fixMin = birthday.getMinutes().toString().length == 1 ? "0" + birthday.getMinutes() : birthday.getMinutes();
     return "" + birthday.getHours() + ":" + fixMin;
-  }
-
-  getOnlyDateGasFix(dateToFix: Date): any {
-    let dateFixed: Date = this.convertDateToUTC(new Date(dateToFix));
-    return dateFixed.toLocaleDateString("es-MX", { year: "numeric" }) + '-' +
-      dateFixed.toLocaleDateString("es-MX", { month: "2-digit" }) + '-' +
-      dateFixed.toLocaleDateString("es-MX", { day: "2-digit" });
-  }
-
-  getOnlyTimeGasFix(dateToFix: Date): any {
-    let dateFixed: Date = this.convertDateToUTC(new Date(dateToFix));
-    let fixMin = dateFixed.getMinutes().toString().length == 1 ? "0" + dateFixed.getMinutes() : dateFixed.getMinutes();
-    return "" + dateFixed.getHours() + ":" + fixMin;
-  }
-
-  getFullFixedDate(dateToFix: Date): any {
-    let dateFixed : Date = new  Date(dateToFix);
-    dateFixed.setHours( dateFixed.getHours() +5 );
-    dateFixed.setMinutes( dateFixed.getMinutes() - 30 );
-    return dateFixed.toLocaleDateString("en-US", {year: "2-digit",month: "2-digit",day: "2-digit" ,hour: '2-digit', minute:'2-digit', timeZone: 'America/Chihuahua' ,localeMatcher : 'best fit'});
   }
 
   capitalizeFirstLetter(string : string) {

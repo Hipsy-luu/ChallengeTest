@@ -15,3 +15,14 @@ export class RoleSuperAdminGuard implements CanActivate {
     return  userRole == 0 ? true : false;
   }
 }
+@Injectable()
+export class RolesAdminGuard implements CanActivate {
+  constructor(/* private reflector: Reflector */) {}
+
+  canActivate(context: ExecutionContext): boolean {
+    const request = context.switchToHttp().getRequest();
+    const userRole : number = request.user.idRole;
+
+    return  userRole == 0 || userRole == 1 ? true : false;
+  }
+}

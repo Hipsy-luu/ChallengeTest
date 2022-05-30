@@ -3,16 +3,18 @@ import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 
 import { DatabaseModule } from '../../database/database.module';
-import { AuthModule } from '../auth/auth.module';
 
 import { UserController } from './user/user.controller';
 
 import { UserService } from './user/user.service';
-import { EmailCenterService } from './email-center/email-center.service';
 
 import { userProviders } from '../../models/modelsProviders/user.providers';
 import { accountsProviders } from '../../models/modelsProviders/accounts.providers';
 import { teamMembersProviders } from '../../models/modelsProviders/teamMembers.providers';
+import { AccountsController } from './accounts/accounts.controller';
+import { AccountsService } from './accounts/accounts.service';
+import { TrackerController } from './tracker/tracker.controller';
+import { TrackerService } from './tracker/tracker.service';
 
 @Module({
   imports: [
@@ -22,16 +24,16 @@ import { teamMembersProviders } from '../../models/modelsProviders/teamMembers.p
       session: false 
     }),
   ],
-  exports: [ 
-    UserService , 
-    EmailCenterService ,
-  ],
+  exports: [],
   controllers: [ 
     UserController , 
+    AccountsController ,
+    TrackerController ,
   ],
   providers: [
-    EmailCenterService,
-    UserService, 
+    UserService , 
+    AccountsService ,
+    TrackerService ,
     ...userProviders,
     ...accountsProviders,
     ...teamMembersProviders,

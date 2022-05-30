@@ -1,0 +1,558 @@
+<div class="row pa-10">
+    <div class="col-12">
+        <div class="card">
+            <div class="pa-l-20 pa-r-25 pa-t-10 pa-b-10 d-flex align-items-center">
+                <div class="row full-width">
+                    <div class="col-6 full-centered full-left">
+                        <div class=" m-b-0 m-l-15 font-18">
+                            <i class="fas fa-address-card"></i>
+                            Registered accounts
+                            <span class="no-margin date-label margin-hori-10-5"
+                                style=" background-color: #29333f;  margin-bottom: 5px; border-color: #3f0058; ">
+                                {{accountsList.length}}</span>
+                        </div>
+                    </div>
+                    <div class="col-6 full-centered full-right">
+                        <button type="button" class="btn mr-0 btn-primary max-btn-animate font-18" aria-label="Eliminar"
+                            (click)="openModalAddAccount()">
+                            <i class="fas fa-plus-square ma-0-10"></i>
+                            New account
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="m-t-0" />
+            <form class="pa-l-20 pa-r-25 pa-t-10 pa-b-10">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group pd-10-l">
+                            <div class="row full-width">
+                                <div class="col-10">
+                                    <label class="control-label form-label pa-l-10 ma-b-10-i">
+                                        Search <i class="pd-10-l fas fa-search"></i>
+                                    </label>
+                                    <input [ngModelOptions]="{ standalone: true }" [(ngModel)]="searchValue"
+                                        (ngModelChange)="filterByEmail($event)"
+                                        placeholder="Search by account name, client name and person in charge"
+                                        class="form-control" type="text" />
+                                </div>
+                                <div class="col-2 pa-b-10">
+                                    <label class="control-label form-label pa-l-10 ma-b-10-i">
+                                        No. Records
+                                    </label>
+                                    <div ngbDropdown class="d-inline-block full-width">
+                                        <button class="outline-btn btn btn-outline-secondary no-entrys-btn"
+                                            id="dropdownBasic12" ngbDropdownToggle>
+                                            <!-- No. Entradas  -->{{ pageSize }}
+                                        </button>
+                                        <div ngbDropdownMenu aria-labelledby="dropdownBasic12">
+                                            <button ngbDropdownItem (click)="pageSize = 5">5</button>
+                                            <button ngbDropdownItem (click)="pageSize = 10">10</button>
+                                            <button ngbDropdownItem (click)="pageSize = 15">15</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- EDIT IMAGES -->
+            <div class="card-body p-t-0 p-r-0">
+                <div class="p-r-15" [perfectScrollbar]="config">
+                    <div class="">
+                        <div class="full-width">
+                            <div>
+                                <div class="row">
+                                    <div class="col-10 full-centered full-left pa-l-20">Accounts</div>
+                                    <div class="col-2 full-centered pa-r-20">Actions</div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="row full-width ma-10" *ngIf="accountsListFiltered.length == 0">
+                                    <div class="col-12 full-centered">
+                                        <img src="/assets/images/logo-ligth.jpg">
+                                    </div>
+                                    <div class="col-12 full-centered">
+                                        <h2>Without results</h2>
+                                    </div>
+                                </div>
+                                <div class="row full-width ma-10 pa-10"
+                                    *ngFor="let account of accountsListFiltered| slice : (page - 1) * pageSize : (page - 1) * pageSize + pageSize;index as i">
+                                    <div class="col-12 card card-row normal-shadow pa-b-10">
+                                        <div class="row full-width">
+                                            <span class="id-label">
+                                                {{account.idAccount}}
+                                            </span>
+                                            <div class="col-3 full-centered full-left pa-t-20">
+                                                <div class="row">
+                                                    <div class="col-12 text-capitalize">
+                                                        <i class="fas fa-address-card"></i>
+                                                        {{account.accountName}}
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <i class="fas fa-user-tie blue-color"></i>
+                                                        {{account.clientName}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-5 full-centered pa-t-20">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <i class="fas fa-id-card-alt blue-color"></i>
+                                                        Person in charge :{{account.personInCharge}}
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <i class="fas fa-users"></i>
+                                                        No. Team Members :
+                                                        {{account.teamMembers.length}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-2 full-centered pa-10-0 pa-t-20">
+                                                <label class="no-margin date-label margin-hori-10-5 "
+                                                    style="background-color: #160e81;margin-bottom: 5px;">
+                                                    <i class="fas fa-calendar"></i>{{ utilitiesService.getOnlyDate(
+                                                        account.createdAt )}}
+                                                </label>
+                                            </div>
+                                            <div class="col-2 full-centered pa-t-10">
+                                                <div  class="row full-centered">
+                                                    <div class="col-12 no-margin full-centered pa-5">
+                                                        <button (click)="openModalEditAccount(account)"
+                                                            class="btn mr-0 btn-primary max-btn-animate full-width pa-10"
+                                                            type="button">
+                                                            <i class="fas fa-edit"></i> Edit
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 full-centered pa-t-10">
+                        <ngb-pagination [pageSize]="pageSize" [collectionSize]="accountsListFiltered.length"
+                            [(page)]="page" [boundaryLinks]="true">
+                            <ng-template ngbPaginationPages let-page let-pages="pages">
+                                <li class="ngb-custom-pages-item" *ngIf="pages.length > 0">
+                                    <div class="mb-3 d-flex flex-nowrap px-2">
+                                        <label id="paginationInputLabel" for="paginationInput"
+                                            class="col-form-label me-2 ms-1">Page</label>
+                                        <input #i type="text" inputmode="numeric" pattern="[0-9]*"
+                                            class="form-control custom-pages-input" id="paginationInput" [value]="page"
+                                            (keyup.enter)="selectPage(i.value)" (blur)="selectPage(i.value)"
+                                            (input)="formatInput($any($event).target)"
+                                            aria-labelledby="paginationInputLabel paginationDescription"
+                                            style="width: 2.5rem" />
+                                        <span id="paginationDescription" class="col-form-label text-nowrap px-2">
+                                            of {{pages.length}}</span>
+                                    </div>
+                                </li>
+                            </ng-template>
+                        </ngb-pagination>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Confirm Delete Account -->
+<ng-template #modalConfirmDelete let-modal>
+    <div *ngIf="showAwaitSearch == true">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Deleting Account</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="loader-actions">Loading...</div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="showAwaitSearch == false">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">
+                Confirm deletion of the account {{selectedAccount.accountName}}
+            </h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row justify-content-center">
+                <div class="col-12 full-centered">
+                    <label class="control-label form-label m-10">
+                        <span style="color: red;">Are you sure you want to delete the account?</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <div class="row full-width">
+                <div class="col-6">
+                    <button (click)="modal.dismiss('Cross click')"
+                        class="btn btn-block btn-lg btn-danger color-white max-btn-animate normal-shadow">
+                        <i class="fas fa-window-close ma-0-10"></i> Cancel
+                    </button>
+                </div>
+                <div class="col-6">
+                    <button (click)="deleteAccount()"
+                        class="btn btn-block btn-lg btn-success color-white max-btn-animate normal-shadow">
+                        <i class="fas fa-trash ma-0-10"></i>
+                        Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</ng-template>
+
+<!-- Modal Confirm Delete User -->
+<ng-template #modalSearchUser let-modal>
+    <div *ngIf="showAwaitSearch == true" class="row full-width no-margin full-centered full-loading-animation">
+        <div class="col-12">
+            <div class="loader-actions">Loading...</div>
+        </div>
+    </div>
+    <div>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">
+                <i class="fas fa-search"></i> Type to search for a user :
+            </h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <label class="control-label form-label pa-l-10 pa-r-10 ma-b-10-i">
+                        Search <i class="pd-10-l fas fa-search"></i>
+                    </label>
+                    <span class="red-color pa-l-10">Up to 4 results are displayed</span>
+                    <input [(ngModel)]="searchUserValue" (ngModelChange)="searchUserToAdd($event)"
+                        placeholder="Search by name and email" class="form-control" type="text" />
+                </div>
+            </div>
+
+            <div class="row full-width ma-10" *ngIf="usersList.length == 0">
+                <div class="col-12 card card-row normal-shadow pa-10 full-centered">
+                    Without results
+                </div>
+            </div>
+
+            <div class="row full-width ma-10" *ngFor="let normalUser of usersList">
+                <div class="col-12 card card-row normal-shadow">
+                    <div class="row no-margin full-width">
+                        <span class="id-label">
+                            {{normalUser.idUser}}
+                        </span>
+                        <div class="col-8 text-capitalize pa-t-20">
+                            <i class="fa-solid fa-user"></i> {{normalUser.name}}
+                            {{normalUser.lastName}} {{normalUser.motherLastName}}
+                        </div>
+
+                        <div class="col-4 full-centered pa-10-0">
+                            <label class="no-margin date-label margin-hori-10-5 "
+                                style="background-color: #160e81;margin-bottom: 5px;">
+                                <i class="fas fa-calendar"></i>{{ utilitiesService.getOnlyDate(
+                                normalUser.createdAt )}}
+                            </label>
+                        </div>
+                        <div class="col-12">
+                            <i class="fa-solid fa-at"></i>{{normalUser.email}}
+                        </div>
+                        <div class="col-12 full-centered full-left pa-b-10">
+                            <div class="row no-margin full-width">
+                                <div class="col-8">
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <i class="fa-solid fa-earth-africa"></i>
+                                        </div>
+                                        <div class="col-10">
+                                            English Level : {{normalUser.englishLevel}}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <i class="fa-solid fa-users-gear"></i>
+                                        </div>
+                                        <div class="col-10">
+                                            Role :
+                                            <span *ngIf="normalUser.idRole == 0">Super
+                                                Administrator</span>
+                                            <span *ngIf="normalUser.idRole == 1">Administrator</span>
+                                            <span *ngIf="normalUser.idRole == 2">Normal User</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4 full-right ">
+                                    <button style="padding: 5px 11px;"
+                                        class="btn mr-0 btn-primary max-btn-animate font-18"
+                                        (click)="addUserToList(normalUser,modal)">
+                                        <i class="fas fa-plus-square ma-0-10"></i>
+                                        Add
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <div class="row full-width">
+                <div class="col-12">
+                    <button (click)="modal.dismiss('Cross click')"
+                        class="btn btn-block btn-lg btn-danger color-white max-btn-animate normal-shadow">
+                        <i class="fas fa-window-close ma-0-10"></i> Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</ng-template>
+
+<!-- Modal info usuario -->
+<ng-template #modalAddEditNew let-modal>
+    <div *ngIf="showAwaitAnimation == true" class="row full-width no-margin full-centered full-loading-animation">
+        <div class="col-12">
+            <div class="loader-actions">Loading...</div>
+        </div>
+        <label class="label-loading">Saving</label>
+    </div>
+    <div>
+        <div class="modal-header">
+            <h4 *ngIf="selectedAccount.idAccount == -1" class="modal-title no-margin" id="modal-basic-title">
+                <i class="fas fa-plus-circle p-r-10"></i>Create new account
+            </h4>
+            <h4 *ngIf="selectedAccount.idAccount != -1" class="modal-title no-margin" id="modal-basic-title">
+                <i class="fas fa-edit p-r-10"></i>Edit account
+            </h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <button *ngIf="selectedAccount.idAccount != -1" type="button"
+                class="btn mr-0 btn-primary max-btn-animate modal-delete-btn" aria-label="Delete"
+                (click)="openModalConfirmDeleteAccount()">
+                <span aria-hidden="true">
+                    <i class="fas fa-trash-alt pa-r-10"></i>Delete
+                </span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="form-box">
+                    <form id="myForm" autocomplete="off" [formGroup]="accountModalForm">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="icon-size pa-r-10">
+                                    <i class="fas fa-address-card blue-color"></i>
+                                </span>
+                                <input type="text" required class="form-control text-forms-cap text-capitalize"
+                                    id="accountName" name="accountName" placeholder="Account Name"
+                                    formControlName="accountName">
+
+                                <span *ngIf="accountName.invalid && accountName.touched">
+                                    <span *ngIf="accountName.errors.required" tooltip-Class="tooltip-class"
+                                        placement="right" ngbTooltip="Account Name required">
+                                        <i class="fas fa-circle-exclamation"></i>
+                                    </span>
+                                    <span *ngIf="accountName.errors.minlength" tooltip-Class="tooltip-class"
+                                        placement="right"
+                                        ngbTooltip="The account name must contain at least 2 characters.">
+                                        <i class="fas fa-circle-exclamation"></i>
+                                    </span>
+                                    <span *ngIf="accountName.errors.maxlength" tooltip-Class="tooltip-class"
+                                        placement="right"
+                                        ngbTooltip="The account name can contain a maximum of 100 characters.">
+                                        <i class="fas fa-circle-exclamation"></i>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="icon-size pa-r-10">
+                                    <i class="fas fa-user-tie blue-color"></i>
+                                </span>
+                                <input type="text" required class="form-control text-forms-cap text-capitalize"
+                                    id="clientName" name="clientName" placeholder="Client Name"
+                                    formControlName="clientName">
+
+                                <span *ngIf="clientName.invalid && clientName.touched">
+                                    <span *ngIf="clientName.errors.required" tooltip-Class="tooltip-class"
+                                        placement="right" ngbTooltip="Client Name required">
+                                        <i class="fas fa-circle-exclamation"></i>
+                                    </span>
+                                    <span *ngIf="clientName.errors.minlength" tooltip-Class="tooltip-class"
+                                        placement="right"
+                                        ngbTooltip="The Client name must contain at least 2 characters.">
+                                        <i class="fas fa-circle-exclamation"></i>
+                                    </span>
+                                    <span *ngIf="clientName.errors.maxlength" tooltip-Class="tooltip-class"
+                                        placement="right"
+                                        ngbTooltip="The Client name can contain a maximum of 150 characters.">
+                                        <i class="fas fa-circle-exclamation"></i>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="icon-size pa-r-10">
+                                    <i class="fas fa-id-card-alt blue-color"></i>
+                                </span>
+                                <input type="text" required class="form-control text-forms-cap text-capitalize"
+                                    id="personInCharge" name="personInCharge" placeholder="Person in charge name"
+                                    formControlName="personInCharge">
+
+                                <span *ngIf="personInCharge.invalid && personInCharge.touched">
+                                    <span *ngIf="personInCharge.errors.required" tooltip-Class="tooltip-class"
+                                        placement="right" ngbTooltip="Person in charge Name required">
+                                        <i class="fas fa-circle-exclamation"></i>
+                                    </span>
+                                    <span *ngIf="personInCharge.errors.minlength" tooltip-Class="tooltip-class"
+                                        placement="right"
+                                        ngbTooltip="The person in charge name must contain at least 5 characters.">
+                                        <i class="fas fa-circle-exclamation"></i>
+                                    </span>
+                                    <span *ngIf="personInCharge.errors.maxlength" tooltip-Class="tooltip-class"
+                                        placement="right"
+                                        ngbTooltip="The person in charge name can contain a maximum of 100 characters.">
+                                        <i class="fas fa-circle-exclamation"></i>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+
+
+                        <div class="row full-width">
+                            <div class="col-6 full-centered full-left pa-b-10">
+                                <div class=" m-b-0 m-l-15 font-18">
+                                    Actual Team
+                                    <span class="no-margin date-label margin-hori-10-5"
+                                        style=" background-color: #29333f;  margin-bottom: 5px; border-color: #3f0058; ">
+                                        {{selectedAccount.teamMembers.length}}</span>
+                                </div>
+                            </div>
+                            <div class="col-6 full-centered full-right pa-b-10">
+                                <button style="padding: 5px 11px;" class="btn mr-0 btn-primary max-btn-animate font-18"
+                                    (click)="openModalSearchUser()">
+                                    <i class="fas fa-user-plus ma-0-10"></i>
+                                    New member
+                                </button>
+                            </div>
+                            <div class="col-12">
+                                <div class="card pa-10" *ngIf="selectedAccount.teamMembers.length == 0">
+                                    No registered members
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row full-width ma-10" *ngFor="let member of selectedAccount.teamMembers">
+                            <div class="col-12 card card-row normal-shadow">
+                                <div class="row no-margin full-width">
+                                    <span class="id-label">
+                                        {{member.user.idUser}}
+                                    </span>
+                                    <div class="col-8 text-capitalize pa-t-20">
+                                        <i class="fa-solid fa-user"></i> {{member.user.name}}
+                                        {{member.user.lastName}} {{member.user.motherLastName}}
+                                    </div>
+
+                                    <div class="col-4 full-centered pa-10-0">
+                                        <label class="no-margin date-label margin-hori-10-5 "
+                                            style="background-color: #160e81;margin-bottom: 5px;">
+                                            <i class="fas fa-calendar"></i>{{ utilitiesService.getOnlyDate(
+                                                member.user.createdAt )}}
+                                        </label>
+                                    </div>
+                                    <div class="col-12">
+                                        <i class="fa-solid fa-at"></i>{{member.user.email}}
+                                    </div>
+                                    <div class="col-12 full-centered full-left pa-b-10">
+                                        <div class="row no-margin full-width">
+                                            <div class="col-8">
+                                                <div class="row">
+                                                    <div class="col-2">
+                                                        <i class="fa-solid fa-earth-africa"></i>
+                                                    </div>
+                                                    <div class="col-10">
+                                                        English Level : {{member.user.englishLevel}}
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-2">
+                                                        <i class="fa-solid fa-users-gear"></i>
+                                                    </div>
+                                                    <div class="col-10">
+                                                        Role :
+                                                        <span *ngIf="member.user.idRole == 0">Super
+                                                            Administrator</span>
+                                                        <span *ngIf="member.user.idRole == 1">Administrator</span>
+                                                        <span *ngIf="member.user.idRole == 2">Normal User</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 full-right ">
+                                                <button style="padding: 5px 11px;"
+                                                    class="btn mr-0 btn-primary max-btn-animate font-18"
+                                                    (click)="deleteUserToList(member.user,member.idTeamMembers)">
+                                                    <i class="fas fa-trash ma-0-10"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="modal-footer">
+                            <div class="row full-width">
+                                <div class="col-6">
+                                    <button (click)="modal.dismiss('Cross click');"
+                                        class="btn btn-block btn-lg btn-danger color-white max-btn-animate normal-shadow">
+                                        <i class="fas fa-window-close ma-0-10"></i> Close
+                                    </button>
+                                </div>
+                                <div class="col-6">
+                                    <button *ngIf="selectedAccount.idAccount == -1" (click)="onSubmit()"
+                                        class="btn btn-block btn-lg btn-success color-white max-btn-animate normal-shadow"
+                                        [disabled]="accountModalForm.invalid || showAwaitAnimation">
+                                        <div class="loader loader-btn" *ngIf="showAwaitAnimation">Loading...</div>
+
+                                        <span *ngIf="!showAwaitAnimation">
+                                            <i class="fas fa-save ma-0-10"></i> Add
+                                        </span>
+                                    </button>
+                                    <button *ngIf="selectedAccount.idAccount != -1" (click)="onSubmit()"
+                                        class="btn btn-block btn-lg btn-success color-white max-btn-animate normal-shadow"
+                                        [disabled]="accountModalForm.invalid || showAwaitAnimation">
+                                        <div class="loader loader-btn" *ngIf="showAwaitAnimation">Loading...</div>
+
+                                        <span *ngIf="!showAwaitAnimation">
+                                            <i class="fas fa-save ma-0-10"></i> Save
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</ng-template>

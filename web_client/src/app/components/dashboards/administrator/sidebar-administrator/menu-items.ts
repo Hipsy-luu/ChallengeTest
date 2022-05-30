@@ -18,20 +18,20 @@ export const ADMINMENU: RouteInfo[] = [
         submenu: []
     },
     {
-        path: '/dashboard-admin/orders',
+        path: '/dashboard-administrator',
         title: 'Teams',
         icon: 'fas fa-users',
         class: 'has-arrow',
         extralink: false,
         submenu: [{
-            path: '/dashboard-admin/band-users',
+            path: '/dashboard-administrator/accounts',
             title: 'Accounts',
             icon: 'fas fa-address-card'/* 'fas fa-user-plus' */,
             class: 'padding-submenu',
             extralink: false,
             submenu: []
         }, {
-            path: '/dashboard-admin/band-users',
+            path: '/dashboard-administrator/movements-history',
             title: 'Movements history',
             icon: 'fas fa-history'/* 'fas fa-user-plus' */,
             class: 'padding-submenu',

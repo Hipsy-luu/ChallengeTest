@@ -1,0 +1,302 @@
+<div class="row pa-10">
+    <div class="col-12">
+        <div class="card">
+            <div class="pa-l-20 pa-r-25 pa-t-10 pa-b-10 d-flex align-items-center">
+                <div class="row full-width">
+                    <div class="col-6 full-centered full-left">
+                        <div class=" m-b-0 m-l-15 font-18">
+                            <i class="fas fa-calendar-alt pa-r-10"></i>
+                            Movements history
+                            <span class="no-margin date-label margin-hori-10-5"
+                                style=" background-color: #29333f;  margin-bottom: 5px; border-color: #3f0058; ">
+                                {{membersHistoryList.length}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <hr class="m-t-0" />
+            <form class="pa-l-20 pa-r-25 pa-t-10 pa-b-10">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group pd-10-l">
+                            <div class="row full-width">
+                                <div class="col-4">
+                                    <label class="control-label form-label pa-l-10 ma-b-10-i">
+                                        Search <i class="pd-10-l fas fa-search"></i>
+                                    </label>
+                                    <input [ngModelOptions]="{ standalone: true }" [(ngModel)]="searchValue"
+                                        (ngModelChange)="filterByEmail($event)" placeholder="Search by account name, user name and email"
+                                        class="form-control" type="text" />
+                                </div>
+                                <div class="col-4 pa-b-10">
+                                    <div class="row full-width">
+                                        <div class="col-12">
+                                            <label class="control-label form-label pa-l-10 ma-b-10-i">
+                                                Showing events between dates
+                                            </label>
+                                        </div>
+                                        <div class="col pa-b-10">
+                                            <div class="row full-width">
+                                                <div class="col-12 front-calendar-profile">
+                                                    <daterangepicker id="okas2" [class]="'col-md-12 col-lg-12 form-control profile-info'"
+                                                        [options]="daterangepickerOneOptions"  (rangeSelected)="rangeOneSelected($event)">
+                                                    </daterangepicker>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <label class="control-label form-label pa-l-10 ma-b-10-i">
+                                        By date
+                                    </label>
+                                    <div ngbDropdown class="d-inline-block full-width">
+                                        <button class="outline-btn btn btn-outline-secondary no-entrys-btn"
+                                            id="dropdownBasic1212" ngbDropdownToggle>
+                                            <span *ngIf="isCreatedAt == true">Start date</span>
+                                            <span *ngIf="isCreatedAt == false">Ending date</span>
+                                        </button>
+                                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1212">
+                                            <button ngbDropdownItem (click)="isCreatedAt = true;loadData();">Start date</button>
+                                            <button ngbDropdownItem (click)="isCreatedAt = false;loadData();">Ending date</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-2 pa-b-10">
+                                    <label class="control-label form-label pa-l-10 ma-b-10-i">
+                                        No. Records
+                                    </label>
+                                    <div ngbDropdown class="d-inline-block full-width">
+                                        <button class="outline-btn btn btn-outline-secondary no-entrys-btn"
+                                            id="dropdownBasic12" ngbDropdownToggle>
+                                            <!-- No. Entradas  -->{{ pageSize }}
+                                        </button>
+                                        <div ngbDropdownMenu aria-labelledby="dropdownBasic12">
+                                            <button ngbDropdownItem (click)="pageSize = 5">5</button>
+                                            <button ngbDropdownItem (click)="pageSize = 10">10</button>
+                                            <button ngbDropdownItem (click)="pageSize = 15">15</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- EDIT IMAGES -->
+            <div class="card-body p-t-0 p-r-0">
+                <div class="p-r-15" [perfectScrollbar]="config">
+                    <div class="">
+                        <div class="full-width">
+                            <div>
+                                <div class="row">
+                                    <div class="col-10 full-centered full-left pa-l-20">User</div>
+                                    <div class="col-2 full-centered pa-r-20">Actions</div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="row full-width ma-10" *ngIf="membersHistoryList.length == 0">
+                                    <div class="col-12 full-centered">
+                                        <img src="/assets/images/logo-ligth.jpg">
+                                    </div>
+                                    <div class="col-12 full-centered">
+                                        <h2>Without results</h2>
+                                    </div>
+                                </div>
+                                <div class="row full-width ma-10"
+                                    *ngFor="let memberHistory of membersHistoryList | slice : (page - 1) * pageSize : (page - 1) * pageSize + pageSize;index as i">
+                                    <div class="col-12 card card-row normal-shadow">
+                                        <div class="row full-width">
+                                            <span class="id-label">
+                                                {{memberHistory.idTeamMembers}}
+                                            </span>
+                                            <div class="col-3 full-centered full-left">
+                                                <div class="row pa-t-10">
+                                                    <div class="col-12 text-capitalize">
+                                                        <i class="fa-solid fa-user"></i> {{memberHistory.user.name}}
+                                                        {{memberHistory.user.lastName}} {{memberHistory.user.motherLastName}}
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <i class="fa-solid fa-at"></i>{{memberHistory.user.email}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-3 full-centered">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="row">
+                                                            <div class="col-1">
+                                                                <i class="fas fa-address-card"></i>
+                                                            </div>
+                                                            <div class="col-11">
+                                                                Account Name : {{memberHistory.account.accountName}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="row">
+                                                            <div class="col-1">
+                                                                <i class="fas fa-user-tie"></i>
+                                                            </div>
+                                                            <div class="col-11">
+                                                                Client Name : {{memberHistory.account.clientName}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-2 full-centered pa-10">
+                                                <label *ngIf="memberHistory.deleted == true" class="no-margin date-label margin-hori-10-5 "
+                                                    style="background-color: #160e81;margin-bottom: 5px;">
+                                                    <i class="fas fa-calendar"></i> Came out
+                                                    {{ utilitiesService.convertDateTime( memberHistory.updatedAt )}}
+                                                </label>
+                                            </div>
+                                            <div class="col-2 full-centered pa-10">
+                                                <label class="no-margin date-label margin-hori-10-5 "
+                                                    style="background-color: #160e81;margin-bottom: 5px;">
+                                                    <i class="fas fa-calendar"></i> Entry
+                                                    {{ utilitiesService.convertDateTime( memberHistory.createdAt )}}
+                                                </label>
+                                            </div>
+                                            <div *ngIf="dataSessionService.user.idRole == 0" class="col-2 full-centered">
+                                                <div  class="row full-centered">
+                                                    <div class="col-12 no-margin full-centered pa-5">
+                                                        <button (click)="openModalAccount(memberHistory)"
+                                                            class="btn mr-0 btn-primary max-btn-animate full-width pa-10"
+                                                            type="button">
+                                                            <i class="fas fa-eye"></i> Details
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 full-centered pa-t-10">
+                        <ngb-pagination [pageSize]="pageSize" [collectionSize]="membersHistoryList.length"
+                            [(page)]="page" [boundaryLinks]="true">
+                            <ng-template ngbPaginationPages let-page let-pages="pages">
+                                <li class="ngb-custom-pages-item" *ngIf="pages.length > 0">
+                                    <div class="mb-3 d-flex flex-nowrap px-2">
+                                        <label id="paginationInputLabel" for="paginationInput"
+                                            class="col-form-label me-2 ms-1">Page</label>
+                                        <input #i type="text" inputmode="numeric" pattern="[0-9]*"
+                                            class="form-control custom-pages-input" id="paginationInput" [value]="page"
+                                            (keyup.enter)="selectPage(i.value)" (blur)="selectPage(i.value)"
+                                            (input)="formatInput($any($event).target)"
+                                            aria-labelledby="paginationInputLabel paginationDescription"
+                                            style="width: 2.5rem" />
+                                        <span id="paginationDescription" class="col-form-label text-nowrap px-2">
+                                            of {{pages.length}}</span>
+                                    </div>
+                                </li>
+                            </ng-template>
+                        </ngb-pagination>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal info usuario -->
+<ng-template #modalAddEditNewUser let-modal>
+    <div>
+        <div class="modal-header">
+            <h4  class="modal-title no-margin" id="modal-basic-title">
+                <i class="fas fa-eye p-r-10"></i>
+                Watching the movement #{{selectedMemberHistory.idTeamMembers}}
+            </h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="form-box">
+                    <div class="form-group">
+                        <div class="input-group ma-10">
+                            <span class="icon-size pa-r-10">
+                                <i class="fas fa-user"></i>
+                            </span>
+                            <label type="text" required class="form-control text-forms-cap text-capitalize" >
+                                <strong>Member name</strong> : {{selectedMemberHistory.user.name}} {{selectedMemberHistory.user.lastName}}
+                                {{selectedMemberHistory.user.motherLastName}}
+                            </label>
+                        </div>
+                        <div class="input-group ma-10">
+                            <span class="icon-size pa-r-10">
+                                <i class="fas fa-envelope"></i>
+                            </span>
+                            <label type="text" required class="form-control" >
+                                <strong>Email</strong> : {{selectedMemberHistory.user.email}}
+                            </label>
+                        </div>
+                        <div class="input-group ma-10">
+                            <span class="icon-size pa-r-10">
+                                <i class="fas fa-comment"></i>
+                            </span>
+                            <label type="text" required class="form-control" >
+                                <strong>Technical Knowledge</strong> {{selectedMemberHistory.user.technicalKnowledge}}
+                            </label>
+                        </div>
+                        <div class="input-group ma-10">
+                            <span class="icon-size pa-r-10">
+                                <i class="fas fa-address-card"></i>
+                            </span>
+                            <label type="text" required class="form-control" >
+                                <strong>Account Name</strong> {{selectedMemberHistory.account.accountName}}
+                            </label>
+                        </div>
+                        <div class="input-group ma-10">
+                            <span class="icon-size pa-r-10">
+                                <i class="fas fa-user-tie"></i>
+                            </span>
+                            <label type="text" required class="form-control" >
+                                <strong>Client Name</strong> : {{selectedMemberHistory.account.clientName}}
+                            </label>
+                        </div>
+                        <div class="input-group ma-10">
+                            <span class="icon-size pa-r-10">
+                                <i class="fas fa-user blue-color"></i>
+                            </span>
+                            <label type="text" required class="form-control" >
+                                <strong>Person in Charge</strong> : {{selectedMemberHistory.account.personInCharge}}
+                            </label>
+                        </div>
+                        <div class="input-group ma-10">
+                            <label type="text" required class="form-control" >
+                                The user entered the team on 
+                                {{ utilitiesService.convertDateTime( selectedMemberHistory.createdAt )}} 
+                                <span *ngIf="selectedMemberHistory.deleted">and left on 
+                                    {{utilitiesService.convertDateTime( selectedMemberHistory.updatedAt )}}</span>.
+                            </label>
+                        </div>
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <div class="row full-width">
+                            <div class="col-12">
+                                <button (click)="modal.dismiss('Cross click');"
+                                    class="btn btn-block btn-lg btn-danger color-white max-btn-animate normal-shadow">
+                                    <i class="fas fa-window-close ma-0-10"></i> Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</ng-template>

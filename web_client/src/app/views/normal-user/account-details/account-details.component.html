@@ -1,0 +1,117 @@
+<div class="row pa-10">
+    <div class="col-12">
+        <div class="">
+            <div class="pa-l-20 pa-r-25 pa-t-10 pa-b-10 d-flex align-items-center">
+                <div class="row full-width">
+                    <div class="col-6 full-centered full-left">
+                        <div class=" m-b-0 m-l-15 font-18">
+                            <i class="fas fa-user-tag"></i>
+                            Account details
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <hr class="m-t-0" />
+            <!-- EDIT IMAGES -->
+            <div class="card normal-shadow">
+                <div class="row">
+                    <div class="form-box">
+                        <div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="icon-size pa-r-10">
+                                        <i class="fas fa-user blue-color"></i>
+                                    </span>
+                                    <label class="form-control text-forms-cap text-capitalize">
+                                        {{dataSessionService.user.name}}
+                                    </label>
+                                </div>
+                            </div>
+    
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="icon-size pa-r-10">
+                                        <i class="fas fa-user blue-color"></i>
+                                    </span>
+                                    <label class="form-control text-forms-cap text-capitalize">
+                                        {{dataSessionService.user.lastName}}
+                                    </label>
+                                </div>
+                            </div>
+    
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="icon-size pa-r-10">
+                                        <i class="fas fa-user blue-color"></i>
+                                    </span>
+                                    <label class="form-control text-forms-cap text-capitalize">
+                                        {{dataSessionService.user.motherLastName}}
+                                    </label>
+                                </div>
+                            </div>
+    
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="icon-size pa-r-10">
+                                        <i class="fas fa-globe-americas blue-color"></i>
+                                    </span>
+                                    <label class="form-control text-forms-cap text-capitalize">
+                                        {{dataSessionService.user.englishLevel}}
+                                    </label>
+                                </div>
+                            </div>
+    
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="icon-size pa-r-10">
+                                        <i class="fas fa-comment blue-color"></i>
+                                    </span>
+                                    <label class="form-control text-forms-cap text-capitalize">
+                                        {{dataSessionService.user.technicalKnowledge}}
+                                    </label>
+                                </div>
+                            </div>
+    
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="icon-size pa-r-10">
+                                        <i class="fas fa-file-pdf blue-color"></i>
+                                    </span>
+                                    <label class="form-control text-forms-cap text-capitalize">
+                                        {{dataSessionService.user.urlCv}}
+                                    </label>
+                                </div>
+                            </div>
+    
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="icon-size pa-r-10">
+                                        <i class="fa-solid fa-users-gear"></i>
+                                    </span>
+                                    <label class="form-control text-forms-cap text-capitalize">
+                                        <span *ngIf="dataSessionService.user.idRole == 0">Super Administrator</span>
+                                        <span *ngIf="dataSessionService.user.idRole == 1">Administrator</span>
+                                        <span *ngIf="dataSessionService.user.idRole == 2">Normal User</span>
+                                    </label>
+                                </div>
+                            </div>
+    
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="icon-size-2 pa-r-10">
+                                        <i class="fas fa-envelope blue-color"></i>
+                                    </span>
+                                    <label class="form-control text-forms-cap">
+                                        {{dataSessionService.user.email}}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -19,5 +19,7 @@ export class Account {
       this.deleted = false;
       this.createdAt = new Date();
       this.updatedAt = new Date();
+
+      this.teamMembers = [];
     }
   }
