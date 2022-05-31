@@ -13,7 +13,7 @@ export class AuthService {
         @Inject('UserRepository') private readonly userRepository: typeof User,
     ) { }
 
-    async validateUserByPassword(loginAttempt: LoginUserDto ) {
+    async validateUserByPassword(loginAttempt: LoginUserDto ) : Promise<ServerMessage> {
         return new Promise(async (resolve, reject) => {
             if (
                 loginAttempt.email == null ||

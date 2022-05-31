@@ -5,9 +5,11 @@ import { JwtStrategy } from './strategies/jwt.strategy';
 import { PassportModule } from '@nestjs/passport';
 import { userProviders } from '../../models/modelsProviders/user.providers';
 import { AuthController } from './auth.controller';
+import { DatabaseModule } from '../../database/database.module';
 
 @Module({
   imports: [
+    DatabaseModule,
     PassportModule.register({ defaultStrategy: 'jwt', session: false }),
     JwtModule.register({
       privateKey: 'movementsTracker.22-23',

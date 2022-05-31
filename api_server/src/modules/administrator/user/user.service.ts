@@ -16,36 +16,40 @@ export class UserService {
     @Inject('AccountRepository') private readonly accountRepository: typeof Account,
     @Inject('TeamMemberRepository') private readonly teamMemberRepository: typeof TeamMember,
   ) {
-    this.createAdmin();
+    this.checkAdmin();
   }
 
-  async createAdmin() {
-    let actualAdmin = await this.userRepository.findOne({
-      where: {
-        email: 'luismi.luu@gmail.com',
-        deleted: false,
-        idRole: 0,
-      }
-    });
-
-    if (!actualAdmin) {
-      let adminUser = await this.userRepository.create<User>({
-        //idUser: number,
-        idRole: 0,
-        name: "Luismiguel",
-        lastName: "Ortiz",
-        motherLastName: "Alvárez",
-        email: "luismi.luu@gmail.com",
-        password: "50YujDBiAF6NNOEx",
-        englishLevel: 7,
-        technicalKnowledge: "Full Stack",
-        urlCv: "https://drive.google.com/file/d/168oNhbgxyUqyLZkJ9r0bR9l6qaykDs4D/view?usp=sharing",
-        deleted: false,
-        //createdAt : Date,
-        //updatedAt : Date
+  async checkAdmin() {
+    try {
+      let actualAdmin = await this.userRepository.findOne({
+        where: {
+          email: 'luismi.luu@gmail.com',
+          deleted: false,
+          //idRole: 0,
+        }
       });
 
-      this.logger.debug('Super admin created');
+      if (!actualAdmin) {
+        let adminUser = await this.userRepository.create<User>({
+          //idUser: number,
+          idRole: 0,
+          name: "Luismiguel",
+          lastName: "Ortiz",
+          motherLastName: "Alvárez",
+          email: "luismi.luu@gmail.com",
+          password: "50YujDBiAF6NNOEx",
+          englishLevel: 7,
+          technicalKnowledge: "Full Stack",
+          urlCv: "https://drive.google.com/file/d/168oNhbgxyUqyLZkJ9r0bR9l6qaykDs4D/view?usp=sharing",
+          deleted: false,
+          //createdAt : Date,
+          //updatedAt : Date
+        });
+
+        this.logger.debug('Super admin created');
+      }
+    } catch (error) {
+      this.logger.error("Error creating admin " + error);
     }
   }
 
@@ -75,7 +79,7 @@ export class UserService {
 
         let actualTeams: TeamMember[] = await this.teamMemberRepository.findAll<TeamMember>({
           where: {
-            idUser : user.idUser,
+            idUser: user.idUser,
             deleted: false,
           },
           include: [{

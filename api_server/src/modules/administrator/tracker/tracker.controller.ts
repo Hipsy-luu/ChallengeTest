@@ -10,7 +10,7 @@ export class TrackerController {
 
   @Post('get-movements-history')
   @UseGuards(AuthGuard(), RolesAdminGuard)
-  getMovementsHistory(@Request() req, @Body() body): Promise<ServerMessage> {
-      return this.trackerService.getMovementsHistory(req.user.idUser, body);
+  getMovementsHistory( @Body() body): Promise<ServerMessage> {
+      return this.trackerService.getMovementsHistory( body);
   }
 }

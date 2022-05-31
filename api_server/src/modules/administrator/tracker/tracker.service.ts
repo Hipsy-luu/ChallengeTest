@@ -24,7 +24,7 @@ export class TrackerService {
       return new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
   }
 
-  async getMovementsHistory(idUser: number,
+  async getMovementsHistory(
     dataToSearch: {
       fromDate: any,
       toDate: any,
@@ -33,8 +33,6 @@ export class TrackerService {
     }): Promise<ServerMessage> {
     try {
       if (
-        idUser == null ||
-        idUser == undefined ||
         dataToSearch.fromDate == null ||
         dataToSearch.fromDate == undefined ||
         dataToSearch.toDate == null ||

@@ -29,10 +29,11 @@ export const databaseProviders = [
           //useUTC: true, //for reading from database
           dateStrings: false,
           typeCast: true,
-          timezone: "America/Chihuahua" //for reading from database
+          //timezone: "America/Chihuahua" //for reading from database
+          timezone: "-06:00", //for reading from database
         },
-        //timezone: "-06:00", //for writing to database
-        timezone: 'America/Chihuahua'//"-06:00"
+        timezone: "-06:00", //for writing to database
+        //timezone: 'America/Chihuahua'//
       });
 
       /**
