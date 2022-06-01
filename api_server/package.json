@@ -6,8 +6,7 @@
   "license": "MIT",
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "nest build && npm run cpdir",
-    "cpdir": "cp -r ./templates  ./dist/templates",
+    "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch && run cpdir",
@@ -21,7 +20,6 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@nestjs-modules/mailer": "^1.4.2",
     "@nestjs/common": "^8.1.1",
     "@nestjs/core": "^8.1.1",
     "@nestjs/jwt": "^8.0.0",
@@ -32,7 +30,6 @@
     "express-rate-limit": "^5.1.1",
     "mysql2": "^2.3.2",
     "nest-winston": "^1.6.2",
-    "nodemailer": "^6.4.6",
     "passport": "^0.5.0",
     "passport-jwt": "^4.0.0",
     "reflect-metadata": "^0.1.13",

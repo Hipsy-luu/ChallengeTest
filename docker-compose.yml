@@ -1,0 +1,58 @@
+#docker-compose up -d --build nest-project
+#docker-compose up -d --force-recreate
+version: '3.8'
+services:
+  mysqldb-app:
+    image: mysql:5.7
+    container_name: mysqldb-app_dev
+    restart: unless-stopped
+    command: 
+      - --explicit_defaults_for_timestamp
+      - --ignore-db-dir=lost+found
+      - --innodb_use_native_aio=0
+      - --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_ROOT_PASSWORD=2hkBtFLGW9Fo4ccW
+    build:
+      context: ./dev_utils
+      dockerfile: './Dockerfile'
+    ports:
+      - '3306:3306'
+    networks:
+      - backend
+  
+  nest-project:
+    depends_on:
+      - mysqldb-app
+    container_name: nestjs_api_dev
+    image: nestjs-api-dev:1.0.0
+    build:
+      context: ./api_server
+      target: production-stage
+      dockerfile: './Dockerfile'
+    ports:
+      - '3000:3000'
+    networks:
+      - backend
+      - frontend
+      
+  client-angular-ui:
+    depends_on:
+      - nest-project
+    container_name: client-angular-ui_dev
+    build:
+      context: ./web_client
+      target: production-stage
+      dockerfile: './Dockerfile'
+    working_dir: /web_client
+    #command: "npm install && npm install -g @angular/cli@8.1.2 && ng serve --open --host 0.0.0.0 --port 4200 --disable-host-check"
+      # command: "ng serve --open --host 0.0.0.0 --port 4200 --disable-host-check"
+    ports:
+      - 4200:80
+    networks:
+      - frontend  
+#volumes: 
+#  db:
+networks:
+  backend:
+  frontend:

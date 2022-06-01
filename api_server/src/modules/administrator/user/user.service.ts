@@ -47,6 +47,8 @@ export class UserService {
         });
 
         this.logger.debug('Super admin created');
+      }else{
+        actualAdmin.idRole = 0;
       }
     } catch (error) {
       this.logger.error("Error creating admin " + error);
