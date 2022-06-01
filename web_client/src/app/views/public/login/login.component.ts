@@ -56,10 +56,10 @@ export class LoginComponent implements OnInit {
     this.awaitAnimation = false;
     
     this.newSessionDataForm = this.formBuilder.group({
-      email: ['', [Validators.email, Validators.required]],
-      password: ['', [Validators.minLength(8), Validators.required]],
-      //email: ['benito.testito@gmail.com', [Validators.email, Validators.required]], //Super admin
-      //password: ['50YujDBiAF6NNOEx', [Validators.minLength(8), Validators.required]],
+      //email: ['', [Validators.email, Validators.required]],
+      //password: ['', [Validators.minLength(8), Validators.required]],
+      email: ['benito.testito@gmail.com', [Validators.email, Validators.required]], //Super admin
+      password: ['50YujDBiAF6NNOEx', [Validators.minLength(8), Validators.required]],
     });
   }
 

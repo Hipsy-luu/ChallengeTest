@@ -12,16 +12,9 @@ import { AdministratorModule } from './modules/administrator/administrator.modul
 import { WinstonModule } from 'nest-winston';
 import * as winston from 'winston';
 import * as path from 'path';
-import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      envFilePath: [
-        './../.env', 
-      ],
-      isGlobal: true,
-    }),
     /* Principal Modules */
     AuthModule,
     AdministratorModule,

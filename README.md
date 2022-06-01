@@ -4,9 +4,9 @@
 
 ## Description
 
-[Challenge](https://github.com/Hipsy-luu/ChallengeTest) Challenge for tecnical knowloge evaluation repository.
+[Challenge](https://github.com/Hipsy-luu/ChallengeTest) for tecnical knowloge evaluation repository.
 
-## Credentials
+## Test User Credentials
 
 - user - 'benito.testito@gmail.com'
 - pass - '50YujDBiAF6NNOEx'
@@ -33,8 +33,21 @@ $ docker-compose up -d --build client-angular-ui
 ```
 
 ## Considerations
-For docker integration we need to change the DATABASE_HOST variable in .env file
-from DATABASE_HOST='localhost' to DATABASE_HOST='mysqldb-app'
+For docker integration we need to change the DATABASE_HOST variable in 
+api_server/src/database/database.providers.ts file
+from host:'localhost' to host:'mysqldb-app'.
+
+<p align="center">
+  <a target="blank"><img src="https://i.imgur.com/1BsWuyv.jpg" width="320" alt="System Lgin" /></a>
+</p>mysqldb-app
+
+<p align="center">
+  <a target="blank"><img src="https://i.imgur.com/udAIRwW.jpg" width="320" alt="System Lgin" /></a>
+</p>
+
+The dockerfile deletes the database every time it is run.
+
+We need to have the ports 4200 and 3000 free in local and docker develoment .
 
 ## Installation
 
