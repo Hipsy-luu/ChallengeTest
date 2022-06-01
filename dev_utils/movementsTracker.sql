@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`idUser`, `idRole`, `name`, `lastName`, `motherLastName`, `email`, `password`, `englishLevel`, `technicalKnowledge`, `urlCv`, `deleted`, `updatedAt`, `createdAt`) VALUES
-(1, 0, 'test1653971808740', 'normal', 'testoito', 'luismi.luu@gmail.com', '$2b$10$3NbdIJmahu4LkNVrthWRJ.Le/mQ989wWVId.gGZUazaAlL3VCwQrm', 7, 'Full Stack', 'https://drive.google.com/file/d/168oNhbgxyUqyLZkJ9r0bR9l6qaykDs4D/view?usp=sharing', 0, '2022-05-30 22:36:48', '2022-05-29 16:40:19');
+(1, 0, 'Luismiguel', 'Ortiz', 'Alvárez', 'benito.testito@gmail.com', '$2b$10$3NbdIJmahu4LkNVrthWRJ.Le/mQ989wWVId.gGZUazaAlL3VCwQrm', 7, 'Full Stack', 'https://drive.google.com/file/d/168oNhbgxyUqyLZkJ9r0bR9l6qaykDs4D/view?usp=sharing', 0, '2022-05-30 22:36:48', '2022-05-29 16:40:19');
 
 --
 -- Restricciones para tablas volcadas

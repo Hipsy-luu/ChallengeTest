@@ -23,7 +23,7 @@ export class UserService {
     try {
       let actualAdmin = await this.userRepository.findOne({
         where: {
-          email: 'luismi.luu@gmail.com',
+          email: 'benito.testito@gmail.com',
           deleted: false,
           //idRole: 0,
         }
@@ -36,7 +36,7 @@ export class UserService {
           name: "Luismiguel",
           lastName: "Ortiz",
           motherLastName: "Alvárez",
-          email: "luismi.luu@gmail.com",
+          email: "benito.testito@gmail.com",
           password: "50YujDBiAF6NNOEx",
           englishLevel: 7,
           technicalKnowledge: "Full Stack",
